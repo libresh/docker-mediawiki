@@ -23,8 +23,8 @@ RUN { \
     echo 'opcache.enable_cli=1'; \
   } > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
-ENV MEDIAWIKI_VERSION 1.26 \
-    MEDIAWIKI_FULL_VERSION 1.26.2
+ENV MEDIAWIKI_VERSION=1.27 \
+    MEDIAWIKI_FULL_VERSION=1.27.1
 
 VOLUME /var/www/html
 
@@ -37,8 +37,8 @@ RUN gpg --keyserver pool.sks-keyservers.net --recv-keys \
     3CEF8262806D3F0B6BA1DBDD7956EE477F901A30 \
     280DB7845A1DCAC92BB5A00A946B02565DC00AA7
 
-RUN MEDIAWIKI_DOWNLOAD_URL="https://releases.wikimedia.org/mediawiki/$MEDIAWIKI_VERSION/mediawiki-$MEDIAWIKI_FULL_VERSION.tar.gz"; \
-    mkdir -p /usr/src/mediawiki \
+RUN MEDIAWIKI_DOWNLOAD_URL="https://releases.wikimedia.org/mediawiki/$MEDIAWIKI_VERSION/mediawiki-$MEDIAWIKI_FULL_VERSION.tar.gz" \
+ && mkdir -p /usr/src/mediawiki \
  && curl -fSL "$MEDIAWIKI_DOWNLOAD_URL" -o mediawiki.tar.gz \
  && curl -fSL "${MEDIAWIKI_DOWNLOAD_URL}.sig" -o mediawiki.tar.gz.sig \
  && gpg --verify mediawiki.tar.gz.sig \
